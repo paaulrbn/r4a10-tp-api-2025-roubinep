@@ -125,11 +125,17 @@ class SpotifyView {
     if (data.tracks?.items?.length) {
       html += '<h3>Chansons</h3>';
       data.tracks.items.forEach(track => {
+        const albumImage = track.album.images[1]?.url || 'images/no-image.png';
         html += `
-          <p class="res">
-            🎵 ${track.name} - ${track.artists[0].name}
-            <a href="${track.external_urls.spotify}" target="_blank">▶️ Écouter</a>
-          </p>
+          <div class="res">
+            <img src="${albumImage}" alt="Pochette de ${track.name}" width="100" height="100"/>
+            <div class="track-info">
+              <p>🎵 ${track.name}</p>
+              <p>👤 ${track.artists[0].name}</p>
+              <p>💿 ${track.album.name}</p>
+              <a href="${track.external_urls.spotify}" target="_blank" class="spotify-link">▶️ Écouter sur Spotify</a>
+            </div>
+          </div>
         `;
       });
     }
@@ -138,11 +144,16 @@ class SpotifyView {
     if (data.artists?.items?.length) {
       html += '<h3>Artistes</h3>';
       data.artists.items.forEach(artist => {
+        const artistImage = artist.images[1]?.url || 'images/no-image.png';
         html += `
-          <p class="res">
-            👤 ${artist.name}
-            <a href="${artist.external_urls.spotify}" target="_blank">👉 Voir</a>
-          </p>
+          <div class="res">
+            <img src="${artistImage}" alt="Photo de ${artist.name}" width="100" height="100"/>
+            <div class="artist-info">
+              <p>👤 ${artist.name}</p>
+              <p>Followers: ${artist.followers.total.toLocaleString()}</p>
+              <a href="${artist.external_urls.spotify}" target="_blank" class="spotify-link">👉 Voir sur Spotify</a>
+            </div>
+          </div>
         `;
       });
     }
@@ -151,11 +162,17 @@ class SpotifyView {
     if (data.albums?.items?.length) {
       html += '<h3>Albums</h3>';
       data.albums.items.forEach(album => {
+        const albumImage = album.images[1]?.url || 'images/no-image.png';
         html += `
-          <p class="res">
-            💿 ${album.name} - ${album.artists[0].name}
-            <a href="${album.external_urls.spotify}" target="_blank">👉 Voir</a>
-          </p>
+          <div class="res">
+            <img src="${albumImage}" alt="Pochette de ${album.name}" width="100" height="100"/>
+            <div class="album-info">
+              <p>💿 ${album.name}</p>
+              <p>👤 ${album.artists[0].name}</p>
+              <p>📅 ${album.release_date.split('-')[0]}</p>
+              <a href="${album.external_urls.spotify}" target="_blank" class="spotify-link">👉 Voir sur Spotify</a>
+            </div>
+          </div>
         `;
       });
     }

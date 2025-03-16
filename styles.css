@@ -166,3 +166,55 @@ h1 {
     flex: 0;
   }
 }
+
+/* Styles pour les résultats */
+#bloc-resultats h3 {
+  color: var(--main-green);
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+#bloc-resultats .res {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+#bloc-resultats .res img {
+  border-radius: 4px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+#bloc-resultats .track-info,
+#bloc-resultats .artist-info,
+#bloc-resultats .album-info {
+  flex: 1;
+}
+
+#bloc-resultats .res p {
+  margin: 5px 0;
+}
+
+.spotify-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: var(--main-green);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.spotify-link:hover {
+  background-color: var(--active-green);
+}
+
+/* Pour les images manquantes */
+#bloc-resultats .res img[src="images/no-image.png"] {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--main-green);
+}
