@@ -5,6 +5,7 @@ import { view } from "./view.js";
 const model = new SpotifyModel(config.clientId, config.clientSecret);
 
 function init() {
+    view.toggleLoading(false); // Ensure the loading GIF is hidden initially
     updateFavoritesList();
     addEventListeners();
 }
@@ -14,7 +15,7 @@ async function performSearch() {
     if (!searchTerm) return;
 
     try {
-        view.loadingGif.style.display = "block";
+        view.toggleLoading(true);
         view.resultsContainer.innerHTML = "";
 
         const token = await model.getAccessToken();
@@ -34,7 +35,7 @@ async function performSearch() {
         view.resultsContainer.innerHTML =
             '<p class="info-vide">Une erreur est survenue lors de la recherche.</p>';
     } finally {
-        view.loadingGif.style.display = "none";
+        view.toggleLoading(false);
     }
 }
 
@@ -61,10 +62,9 @@ function displayResults(data) {
                 <div class="res">
                     <img src="${albumImage}" alt="Pochette de ${track.name}" width="100" height="100"/>
                     <div class="track-info">
-                        <p>🎵 ${track.name}</p>
-                        <p>👤 ${track.artists[0].name}</p>
-                        <p>💿 ${track.album.name}</p>
-                        <a href="${track.external_urls.spotify}" target="_blank" class="spotify-link">▶️ Écouter sur Spotify</a>
+                        <p class="track-name">${track.name}</p>
+                        <p class="track-artist">${track.artists[0].name}</p>
+                        <p class="track-album">${track.album.name}</p>
                     </div>
                 </div>
             `;
@@ -82,8 +82,8 @@ function displayResults(data) {
                 artist.name
             }" width="100" height="100"/>
                     <div class="artist-info">
-                        <p>👤 ${artist.name}</p>
-                        <p>Followers: ${artist.followers.total.toLocaleString()}</p>
+                        <p class="artist-name">${artist.name}</p>
+                        <p class="artist-followers">${artist.followers.total.toLocaleString()} followers</p>
                         <a href="${
                             artist.external_urls.spotify
                         }" target="_blank" class="spotify-link">👉 Voir sur Spotify</a>
@@ -139,47 +139,12 @@ function toggleFavorite() {
     }
 
     model.saveFavorites();
+    updateFavoritesList(); // Update the favorites list dynamically
     updateFavoriteButtonState();
 }
 
-function updateFavoriteButtonState() {
-    const searchTerm = view.searchInput.value.trim();
-    const isFavorite = model.favorites.includes(searchTerm);
-
-    view.favoriteButton.classList.toggle("btn_clicable", searchTerm !== "");
-    view.favoriteButton.querySelector("img").src = isFavorite
-        ? "images/etoile-pleine.svg"
-        : "images/etoile-vide.svg";
-}
-
 function updateFavoritesList() {
-    const noFavoritesMessage = document.querySelector(
-        "#section-favoris .info-vide"
-    );
-
-    if (model.favorites.length === 0) {
-        view.favoritesList.innerHTML = "";
-        noFavoritesMessage.style.display = "block";
-        return;
-    }
-
-    noFavoritesMessage.style.display = "none";
-    view.favoritesList.innerHTML = model.favorites
-        .map(
-            (term) => `
-                <li>
-                    <span title="Cliquer pour relancer la recherche">${term}</span>
-                    <img
-                        src="images/croix.svg"
-                        alt="Icone pour supprimer le favori"
-                        width="15"
-                        title="Cliquer pour supprimer le favori"
-                        class="delete-favorite"
-                    />
-                </li>
-            `
-        )
-        .join("");
+    view.updateFavoritesList(model.favorites);
 
     view.favoritesList.querySelectorAll("li span").forEach((span, index) => {
         span.addEventListener("click", () => {
@@ -200,6 +165,7 @@ function updateFavoritesList() {
                 ) {
                     model.favorites.splice(index, 1);
                     model.saveFavorites();
+                    updateFavoritesList(); // Update the favorites list dynamically
                     updateFavoriteButtonState();
                 }
             });

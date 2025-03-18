@@ -3,35 +3,37 @@
     <head>
         <title>Recherche de Musiques Spotify</title>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" type="image/x-icon" href="favicon-js.ico" />
         <link rel="stylesheet" href="styles.css" />
         <script src="js/main.js" type="module" defer></script>
     </head>
 
     <body>
-        <header>
+        <header class="header">
             <h1>Recherche de Musiques Spotify</h1>
-
             <p id="explication">
-                Cette page permet de rechercher des musiques via l'API publique
-                de
-                <a href="https://www.spotify.com" target="_blank">Spotify</a
+                Recherchez des musiques via l'API publique de
+                <a
+                    href="https://www.spotify.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Spotify</a
                 >.<br />
-                Saisissez le nom d'un artiste, d'une chanson ou d'un album pour
-                découvrir les résultats correspondants. Enregistrez vos
-                recherches favorites pour les retrouver facilement.
+                Saisissez un artiste, une chanson ou un album pour découvrir les
+                résultats correspondants. Enregistrez vos recherches favorites
+                pour les retrouver facilement.
             </p>
         </header>
-        <hr />
 
         <main id="conteneur">
-            <section id="section-recherche">
-                <div id="bloc-recherche">
+            <section id="section-recherche" class="card">
+                <div id="bloc-recherche" class="search-bar">
                     <input
                         type="text"
                         placeholder="Artiste, chanson ou album..."
+                        aria-label="Rechercher une musique"
                     />
-
                     <button
                         id="btn-lancer-recherche"
                         type="button"
@@ -44,7 +46,6 @@
                             width="22"
                         />
                     </button>
-
                     <button
                         id="btn-favoris"
                         type="button"
@@ -59,28 +60,24 @@
                     </button>
                 </div>
 
-                <div id="bloc-gif-attente">
+                <div id="bloc-gif-attente" class="loading">
                     <img
                         src="images/attente-ajax.gif"
                         alt="GIF Attente de résultats"
                         width="50"
                     />
                 </div>
-                <div id="bloc-resultats">
-                    <!-- Les résultats seront injectés ici via JavaScript -->
+                <div id="bloc-resultats" class="results">
                     <p class="info-vide">(Aucun résultat trouvé)</p>
                 </div>
             </section>
 
-            <section id="section-separation"></section>
-
-            <section id="section-favoris">
+            <section id="section-favoris" class="card">
                 <h2>Recherches favorites</h2>
                 <p>Cliquez sur une recherche favorite pour la relancer :</p>
                 <ul id="liste-favoris">
-                    <!-- Les favoris seront injectés ici via JavaScript -->
+                    <p class="info-vide">(Aucune recherche favorite)</p>
                 </ul>
-                <p class="info-vide">(Aucune recherche favorite)</p>
             </section>
         </main>
     </body>

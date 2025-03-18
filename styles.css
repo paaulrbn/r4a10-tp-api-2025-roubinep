@@ -1,202 +1,167 @@
 /* Importation de la police Roboto */
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap);
 
 /* Définition des principales couleurs */
 :root {
-  --text-color: #fafafa; /* (Texte presque blanc) */
-  --background: #34495e; /* (Fond bleu foncé) */
-  --background-button: #bebebe;
-  --main-green: rgb(26, 188, 156);
-  --active-green: rgb(20, 156, 128);
-  --almost-black: #2d2d2d;
+  --text-color: #e0e0e0;
+  --background: #121212;
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --main-green: #1db954;
+  --hover-green: #14833b;
+  --placeholder-color: #aaaaaa;
 }
 
 * {
-  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-color: var(--background);
-  font: 14pt Roboto, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  width: 90%;
-  margin: 40px auto;
+  color: var(--text-color);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+  backdrop-filter: blur(10px);
 }
 
-/* Paragraphes "Aucun résultat..." et "Aucune recherche..." */
-p.info-vide {
-  font-style: italic;
-}
-
-/* Partie En-tête */
-h1 {
-  text-align: center;
-  font-variant: small-caps;
-  font-size: 2.5em;
+h1, h2 {
   color: var(--main-green);
 }
 
-#explication {
-  font-size: 1.2em;
+a {
+  color: var(--main-green);
+  text-decoration: none;
 }
 
-/* Conteneur principal */
-#conteneur {
-  display: flex;
-  flex: 1;
-  margin: 30px auto;
-}
-
-/* Section Recherche (avec résultats) */
-#section-recherche {
-  margin-top: 0;
-  flex: 1 1 auto;
-}
-
-#bloc-recherche {
-  display: flex;
-  margin: 0 auto;
-  min-width: 450px;
-  flex-direction: row;
-}
-
-#bloc-recherche > input[type="text"],
-#bloc-recherche > button {
-  display: block;
-  font-size: 1.2em;
-}
-
-#bloc-recherche > input[type="text"] {
-  color: var(--almost-black);
-  flex: 1;
-  padding: 0.7em;
-  border: 0.3em solid var(--main-green);
-}
-
-#bloc-recherche > button {
-  padding: 0.8em 0.8em;
-  /* Bordure invisible pour que le hover ne bouge pas le bouton */
-  border: 1px solid var(--main-green);
-
-  /* Par défaut, les boutons sont en gris
-	 (S'ils sont "clicables", ils passent en vert) */
-  background-color: var(--background-button);
-}
-
-/* Apparences des boutons clicables */
-#bloc-recherche > button.btn_clicable {
-  background-color: var(--main-green);
-}
-
-#bloc-recherche > button:focus {
-  /* Pour éviter un affichage disgracieux
-		quand le bouton reste en focus */
-  outline: 0 !important;
-}
-
-#bloc-recherche > button.btn_clicable:hover {
-  cursor: pointer;
-  border: 1px solid white;
-}
-
-#bloc-recherche > button.btn_clicable:active {
-  background-color: var(--active-green);
-}
-
-/* GIF de chargement (caché par défaut) */
-#bloc-gif-attente {
-  display: none;
-  margin: 40px;
-  text-align: center;
-}
-
-#bloc-resultats p.res::before {
-  /* Affichage d'une flèche devant chaque résultat
-		(Cf. https://unicode-table.com/fr/21E8/ ) */
-  content: "\21E8\00A0";
-}
-
-/* Section de la barre de séparation */
-#section-separation {
-  border-left: 2px dashed var(--main-green);
-  margin: 0 20px;
-}
-
-/* Section des recherches favorites */
-#section-favoris {
-  flex: 0 0 300px;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-#section-favoris h2 {
-  margin-top: 0;
-}
-
-#section-favoris p {
-  margin-bottom: 8px;
-}
-
-#liste-favoris li {
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-
-#liste-favoris li span {
+a:hover {
   text-decoration: underline;
 }
 
-#liste-favoris li span:hover {
-  color: var(--main-green);
+.header {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-/* Media-query pour gérer l'affichage sur petit écran */
-@media (max-width: 900px) {
-  #conteneur {
-    flex-direction: column-reverse;
-  }
-
-  #section-separation {
-    border-top: 2px dashed var(--main-green);
-    margin: 0 -10px 40px -10px;
-  }
-
-  #section-favoris {
-    flex: 0;
-  }
+#conteneur {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-/* Styles pour les résultats */
-#bloc-resultats h3 {
-  color: var(--main-green);
-  margin-top: 30px;
-  margin-bottom: 20px;
+.card {
+  width: 100%;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#bloc-resultats .res {
+/* .card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+} */
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  background: var(--glass-background);
+  color: var(--text-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: var(--placeholder-color);
+}
+
+.search-bar button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--main-green);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-bar button:hover {
+  background-color: var(--hover-green);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.results .res {
+  cursor: pointer;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 15px;
   padding: 15px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-#bloc-resultats .res img {
-  border-radius: 4px;
-  margin-right: 20px;
+.results .res .track-info {
+  line-height: 1.5rem;
+}
+
+.results .res .track-info .track-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.results .res .track-info .track-artist {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.results .res .track-info .track-album {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--placeholder-color);
+}
+
+.results .res:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.results img {
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-}
-
-#bloc-resultats .track-info,
-#bloc-resultats .artist-info,
-#bloc-resultats .album-info {
-  flex: 1;
-}
-
-#bloc-resultats .res p {
-  margin: 5px 0;
 }
 
 .spotify-link {
@@ -206,15 +171,54 @@ h1 {
   background-color: var(--main-green);
   border-radius: 20px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  color: var(--text-color);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .spotify-link:hover {
-  background-color: var(--active-green);
+  background-color: var(--hover-green);
+  transform: scale(1.05);
 }
 
-/* Pour les images manquantes */
-#bloc-resultats .res img[src="images/no-image.png"] {
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--main-green);
+#liste-favoris li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: var(--glass-background);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#liste-favoris li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#liste-favoris li span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#liste-favoris li span:hover {
+  color: var(--main-green);
+}
+
+#liste-favoris li img {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#liste-favoris li img:hover {
+  transform: scale(1.2);
+}
+
+@media (max-width: 900px) {
+  #conteneur {
+    flex-direction: column;
+  }
 }
