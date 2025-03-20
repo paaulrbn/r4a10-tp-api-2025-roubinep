@@ -150,8 +150,8 @@ function toggleFavorite() {
 function updateFavoritesList() {
     displayFavoritesList(model.favorites);
 
-    view.favoritesList.querySelectorAll("li").forEach((li, index) => {
-        li.addEventListener("click", () => {
+    view.favoritesList.querySelectorAll("li").forEach((span, index) => {
+        span.addEventListener("click", () => {
             view.searchInput.value = model.favorites[index];
             updateFavoriteButtonState();
             performSearch();
@@ -161,7 +161,8 @@ function updateFavoritesList() {
     view.favoritesList
         .querySelectorAll(".delete-favorite")
         .forEach((img, index) => {
-            img.addEventListener("click", () => {
+            img.addEventListener("click", (event) => {
+                event.stopPropagation(); // Prevent triggering the click on the favorite span
                 if (
                     confirm(
                         `Voulez-vous vraiment supprimer "${model.favorites[index]}" des favoris ?`
