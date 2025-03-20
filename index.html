@@ -61,25 +61,27 @@
                 </div>
             </section>
 
-            <section id="section-favoris" class="card">
-                <h2>Recherches favorites</h2>
-                <p>Cliquez sur une recherche favorite pour la relancer :</p>
-                <ul id="liste-favoris"></ul>
-                <p class="info-vide">(Aucune recherche favorite)</p>
-            </section>
+            <div class="content">
+                <section class="card section-results">
+                    <div id="bloc-gif-attente" class="loading">
+                        <img
+                            src="images/attente-ajax.gif"
+                            alt="GIF Attente de résultats"
+                            width="50"
+                        />
+                    </div>
+                    <div id="bloc-resultats" class="results">
+                        <p class="info-vide">Aucun résultats pour le moment</p>
+                    </div>
+                </section>
 
-            <section class="card">
-                <div id="bloc-gif-attente" class="loading">
-                    <img
-                        src="images/attente-ajax.gif"
-                        alt="GIF Attente de résultats"
-                        width="50"
-                    />
-                </div>
-                <div id="bloc-resultats" class="results">
-                    <p class="info-vide">Aucun résultats pour le moment</p>
-                </div>
-            </section>
+                <section id="section-favoris" class="card section-favoris">
+                    <h2>Recherches favorites</h2>
+                    <p>Cliquez sur une recherche favorite pour la relancer :</p>
+                    <ul id="liste-favoris"></ul>
+                    <p class="info-vide">(Aucune recherche favorite)</p>
+                </section>
+            </div>
         </main>
     </body>
 </html>
