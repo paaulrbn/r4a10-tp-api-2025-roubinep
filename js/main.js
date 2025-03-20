@@ -5,7 +5,7 @@ import { view } from "./view.js";
 const model = new SpotifyModel(config.clientId, config.clientSecret);
 
 function init() {
-    view.toggleLoading(false); // Ensure the loading GIF is hidden initially
+    toggleLoading(false);
     updateFavoritesList();
     addEventListeners();
 }
@@ -15,7 +15,7 @@ async function performSearch() {
     if (!searchTerm) return;
 
     try {
-        view.toggleLoading(true);
+        toggleLoading(true);
         view.resultsContainer.innerHTML = "";
 
         const token = await model.getAccessToken();
@@ -35,7 +35,7 @@ async function performSearch() {
         view.resultsContainer.innerHTML =
             '<p class="info-vide">Une erreur est survenue lors de la recherche.</p>';
     } finally {
-        view.toggleLoading(false);
+        toggleLoading(false);
     }
 }
 
@@ -148,10 +148,10 @@ function toggleFavorite() {
 }
 
 function updateFavoritesList() {
-    view.updateFavoritesList(model.favorites);
+    displayFavoritesList(model.favorites);
 
-    view.favoritesList.querySelectorAll("li span").forEach((span, index) => {
-        span.addEventListener("click", () => {
+    view.favoritesList.querySelectorAll("li").forEach((li, index) => {
+        li.addEventListener("click", () => {
             view.searchInput.value = model.favorites[index];
             updateFavoriteButtonState();
             performSearch();
@@ -176,6 +176,21 @@ function updateFavoritesList() {
         });
 }
 
+function updateFavoriteButtonState() {
+    const searchTerm = view.searchInput.value.trim();
+    if (!searchTerm) {
+        view.favoriteButton.disabled = true;
+        view.favoriteButton.querySelector("img").src = "images/etoile-vide.svg";
+        return;
+    }
+
+    const isFavorite = model.favorites.includes(searchTerm);
+    view.favoriteButton.disabled = false;
+    view.favoriteButton.querySelector("img").src = isFavorite
+        ? "images/etoile-pleine.svg"
+        : "images/etoile-vide.svg";
+}
+
 function addEventListeners() {
     view.searchInput.addEventListener("input", () => {
         const isEmpty = !view.searchInput.value.trim();
@@ -193,6 +208,44 @@ function addEventListeners() {
     });
 
     view.favoriteButton.addEventListener("click", () => toggleFavorite());
+}
+
+function toggleLoading(show) {
+    view.loadingGif.style.display = show ? "block" : "none";
+}
+
+function displayFavoritesList(favorites) {
+    const noFavoritesMessage = document.querySelector(
+        "#section-favoris .info-vide"
+    );
+
+    if (!noFavoritesMessage) {
+        console.error("Element '.info-vide' not found in #section-favoris");
+        return;
+    }
+
+    if (favorites.length === 0) {
+        view.favoritesList.innerHTML = "";
+        noFavoritesMessage.style.display = "block";
+    } else {
+        noFavoritesMessage.style.display = "none";
+        view.favoritesList.innerHTML = favorites
+            .map(
+                (term) => `
+                    <li>
+                        <span title="Cliquer pour relancer la recherche">${term}</span>
+                        <img
+                            src="images/croix.svg"
+                            alt="Icone pour supprimer le favori"
+                            width="15"
+                            title="Cliquer pour supprimer le favori"
+                            class="delete-favorite"
+                        />
+                    </li>
+                `
+            )
+            .join("");
+    }
 }
 
 // Initialisation
