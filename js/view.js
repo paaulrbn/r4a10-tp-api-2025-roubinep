@@ -16,7 +16,7 @@ export const view = {
         );
 
         if (favorites.length === 0) {
-            this.favoritesList.innerHTML = "";
+            this.favoritesList.innerHTML = "Aucune recherche favorite";
             noFavoritesMessage.style.display = "block";
         } else {
             noFavoritesMessage.style.display = "none";

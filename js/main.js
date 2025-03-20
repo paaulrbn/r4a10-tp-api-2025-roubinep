@@ -59,14 +59,16 @@ function displayResults(data) {
             const albumImage =
                 track.album.images[1]?.url || "images/no-image.png";
             html += `
-                <div class="res">
-                    <img src="${albumImage}" alt="Pochette de ${track.name}" width="100" height="100"/>
-                    <div class="track-info">
-                        <p class="track-name">${track.name}</p>
-                        <p class="track-artist">${track.artists[0].name}</p>
-                        <p class="track-album">${track.album.name}</p>
+                <a href="${track.external_urls.spotify}" target="_blank">
+                    <div class="res">
+                        <img src="${albumImage}" alt="Pochette de ${track.name}" width="100" height="100"/>
+                        <div class="track-info">
+                            <p class="track-name">${track.name}</p>
+                            <p class="track-artist">${track.artists[0].name}</p>
+                            <p class="track-album">${track.album.name}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             `;
         });
     }
@@ -77,18 +79,19 @@ function displayResults(data) {
         data.artists.items.forEach((artist) => {
             const artistImage = artist.images[1]?.url || "images/no-image.png";
             html += `
-                <div class="res">
-                    <img src="${artistImage}" alt="Photo de ${
+                <a href="${artist.external_urls.spotify}" target="_blank">
+                    <div class="res">
+                        <img class="artist-img" src="${artistImage}" alt="Photo de ${
                 artist.name
             }" width="100" height="100"/>
-                    <div class="artist-info">
-                        <p class="artist-name">${artist.name}</p>
-                        <p class="artist-followers">${artist.followers.total.toLocaleString()} followers</p>
-                        <a href="${
-                            artist.external_urls.spotify
-                        }" target="_blank" class="spotify-link">👉 Voir sur Spotify</a>
+                        
+                        <div class="artist-info">
+                            <p class="artist-name">${artist.name}</p>
+                            <p class="artist-followers">${artist.followers.total.toLocaleString()} followers</p>
+                        </div>
+
                     </div>
-                </div>
+                </a>
             `;
         });
     }
@@ -99,19 +102,20 @@ function displayResults(data) {
         data.albums.items.forEach((album) => {
             const albumImage = album.images[1]?.url || "images/no-image.png";
             html += `
-                <div class="res">
-                    <img src="${albumImage}" alt="Pochette de ${
+                <a href="${album.external_urls.spotify}" target="_blank">
+                    <div class="res">
+                        <img src="${albumImage}" alt="Pochette de ${
                 album.name
             }" width="100" height="100"/>
-                    <div class="album-info">
-                        <p>💿 ${album.name}</p>
-                        <p>👤 ${album.artists[0].name}</p>
-                        <p>📅 ${album.release_date.split("-")[0]}</p>
-                        <a href="${
-                            album.external_urls.spotify
-                        }" target="_blank" class="spotify-link">👉 Voir sur Spotify</a>
+                        <div class="album-info">
+                            <p class="album-name">${album.name}</p>
+                            <p class="album-artist">${album.artists[0].name}</p>
+                            <p class="album-release">${
+                                album.release_date.split("-")[0]
+                            }</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             `;
         });
     }
@@ -139,7 +143,7 @@ function toggleFavorite() {
     }
 
     model.saveFavorites();
-    updateFavoritesList(); // Update the favorites list dynamically
+    updateFavoritesList();
     updateFavoriteButtonState();
 }
 

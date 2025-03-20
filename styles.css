@@ -35,12 +35,12 @@ h1, h2 {
 }
 
 a {
-  color: var(--main-green);
+  color: var(--text-color);
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .header {
@@ -58,8 +58,8 @@ a:hover {
   width: 100%;
   background: var(--glass-background);
   border: 1px solid var(--glass-border);
-  border-radius: 15px;
-  padding: 20px;
+  border-radius: 20px;
+  padding: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -80,7 +80,7 @@ a:hover {
   flex: 1;
   padding: 10px;
   border: 1px solid var(--glass-border);
-  border-radius: 5px;
+  border-radius: 10px;
   background: var(--glass-background);
   color: var(--text-color);
   backdrop-filter: blur(5px);
@@ -94,7 +94,7 @@ a:hover {
 .search-bar button {
   padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--main-green);
   color: var(--text-color);
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -122,7 +122,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 15px;
+  padding: 5px;
   background: var(--glass-background);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
@@ -147,6 +147,44 @@ a:hover {
 }
 
 .results .res .track-info .track-album {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--placeholder-color);
+}
+
+.results .res .artist-img {
+  border-radius: 50%;
+}
+
+.results .res .artist-info {
+  line-height: 1.5rem;
+}
+
+.results .res .artist-info .artist-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.results .res .artist-info .artist-followers {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.results .res .album-info {
+  line-height: 1.5rem;
+}
+
+.results .res .album-info .album-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.results .res .album-info .album-artist {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.results .res .album-info .album-release {
   font-size: 0.8rem;
   font-weight: 400;
   color: var(--placeholder-color);
@@ -180,6 +218,12 @@ a:hover {
   transform: scale(1.05);
 }
 
+#liste-favoris {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 #liste-favoris li {
   display: flex;
   justify-content: space-between;
@@ -187,7 +231,7 @@ a:hover {
   padding: 10px;
   background: var(--glass-background);
   border: 1px solid var(--glass-border);
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -215,6 +259,11 @@ a:hover {
 
 #liste-favoris li img:hover {
   transform: scale(1.2);
+}
+
+.info-vide {
+  text-align: center;
+  margin: 10px;
 }
 
 @media (max-width: 900px) {
