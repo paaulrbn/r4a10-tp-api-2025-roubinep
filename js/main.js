@@ -128,9 +128,12 @@ function toggleFavorite() {
     if (!searchTerm) return;
 
     const index = model.favorites.indexOf(searchTerm);
+
     if (index === -1) {
+        // Add to favorites
         model.favorites.push(searchTerm);
     } else {
+        // Confirm before removing from favorites
         if (
             confirm(
                 `Voulez-vous vraiment supprimer "${searchTerm}" des favoris ?`
@@ -179,17 +182,23 @@ function updateFavoritesList() {
 
 function updateFavoriteButtonState() {
     const searchTerm = view.searchInput.value.trim();
+
     if (!searchTerm) {
+        // If the input is empty, disable the button and set it to default (gray background)
         view.favoriteButton.disabled = true;
+        view.favoriteButton.classList.remove("btn_clicable");
         view.favoriteButton.querySelector("img").src = "images/etoile-vide.svg";
         return;
     }
 
     const isFavorite = model.favorites.includes(searchTerm);
+
+    // Enable the button and set the background to green
     view.favoriteButton.disabled = false;
+    view.favoriteButton.classList.add("btn_clicable");
     view.favoriteButton.querySelector("img").src = isFavorite
-        ? "images/etoile-pleine.svg"
-        : "images/etoile-vide.svg";
+        ? "images/etoile-pleine.svg" // Full star for existing favorite
+        : "images/etoile-vide.svg"; // Empty star for non-favorite
 }
 
 function addEventListeners() {
@@ -197,7 +206,6 @@ function addEventListeners() {
         const isEmpty = !view.searchInput.value.trim();
         view.searchButton.disabled = isEmpty;
         view.searchButton.classList.toggle("btn_clicable", !isEmpty);
-        view.favoriteButton.disabled = isEmpty;
         updateFavoriteButtonState();
     });
 
@@ -208,7 +216,11 @@ function addEventListeners() {
         }
     });
 
-    view.favoriteButton.addEventListener("click", () => toggleFavorite());
+    view.favoriteButton.addEventListener("click", () => {
+        if (!view.favoriteButton.disabled) {
+            toggleFavorite();
+        }
+    });
 }
 
 function toggleLoading(show) {
