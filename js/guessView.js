@@ -54,7 +54,11 @@ export const guessView = {
                         (item) => `
                     <tr>
                         <td>${item.criterion}</td>
-                        <td>${item.actual}</td>
+                        <td>${
+                            item.criterion === "Popularité"
+                                ? `${item.actual}/100`
+                                : item.actual
+                        }</td>
                         <td style="color: ${item.isCorrect ? "green" : "red"};">
                             ${
                                 item.isCorrect
