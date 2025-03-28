@@ -76,6 +76,16 @@ export const guessView = {
         this.feedbackContainer.innerHTML = `<p style="color: red;">${message}</p>`;
     },
 
+    displaySuccessMessage(message) {
+        const successMessage = document.createElement("p");
+        successMessage.style.color = "green";
+        successMessage.style.fontWeight = "bold";
+        successMessage.textContent = message;
+
+        // Ajoute le message de succès au début du conteneur des feedbacks
+        this.feedbackContainer.prepend(successMessage);
+    },
+
     onGuessInput(callback) {
         this.guessInput.addEventListener("input", callback);
     },

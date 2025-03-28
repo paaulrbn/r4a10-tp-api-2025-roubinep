@@ -4,6 +4,7 @@ import config from "./config.js";
 
 const model = new SpotifyModel(config.clientId, config.clientSecret);
 let targetMusic = null; // Musique à deviner
+let attempts = 0; // Compteur d'essais
 
 async function fetchRandomMusic() {
     try {
@@ -78,6 +79,8 @@ function init() {
                 return;
             }
 
+            attempts++; // Incrémente le compteur d'essais
+
             try {
                 const token = await model.getAccessToken();
                 const data = await model.searchSpotify(guess, token);
@@ -85,12 +88,28 @@ function init() {
                 if (data.tracks?.items?.length) {
                     const track = data.tracks.items[0];
                     const feedback = evaluateGuess(track);
-                    guessView.appendFeedback(
-                        feedback,
-                        `${track.name || "Inconnu"} - ${
-                            track.artists[0]?.name || "Inconnu"
-                        }`
-                    );
+
+                    // Vérifie si toutes les réponses sont correctes
+                    const allCorrect = feedback.every((item) => item.isCorrect);
+                    if (allCorrect) {
+                        guessView.appendFeedback(
+                            feedback,
+                            `${track.name || "Inconnu"} - ${
+                                track.artists[0]?.name || "Inconnu"
+                            }`
+                        );
+                        guessView.displaySuccessMessage(
+                            `Félicitations ! Vous avez trouvé la bonne réponse en ${attempts} essai(s).`
+                        );
+                        attempts = 0; // Réinitialise le compteur pour une nouvelle partie
+                    } else {
+                        guessView.appendFeedback(
+                            feedback,
+                            `${track.name || "Inconnu"} - ${
+                                track.artists[0]?.name || "Inconnu"
+                            }`
+                        );
+                    }
                 } else {
                     guessView.displayError("Aucune musique trouvée.");
                 }
