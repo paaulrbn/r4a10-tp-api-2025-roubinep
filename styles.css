@@ -280,6 +280,82 @@ a:hover {
   margin: 10px;
 }
 
+.feedback {
+  margin-top: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.feedback p {
+  margin: 5px 0;
+}
+
+.autocomplete-list {
+  top: 50px;
+  position: absolute;
+  background-color: var(--background);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  width: calc(100% - 20px);
+  margin-top: 5px;
+}
+
+.autocomplete-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-list li:hover {
+  background-color: var(--main-green);
+  color: var(--text-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table caption {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid var(--glass-border);
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: var(--glass-background);
+}
+
+table td {
+  background-color: var(--background-secondary);
+}
+
+.btn-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: var(--main-green);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-link:hover {
+  background-color: var(--hover-green);
+  transform: scale(1.05);
+}
+
 @media (max-width: 900px) {
   #conteneur {
     flex-direction: column;

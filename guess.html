@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+    <head>
+        <title>Devinez la Musique</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="js/guess.js" type="module" defer></script>
+    </head>
+
+    <body>
+        <header class="header">
+            <h1>Devinez la Musique</h1>
+            <p>
+                Essayez de deviner une musique en fonction de son genre, de son
+                année de sortie, etc. Entrez un titre pour voir si vous avez
+                raison !
+            </p>
+            <a href="index.html" class="btn-link">Retour à la Recherche</a>
+        </header>
+
+        <main id="conteneur">
+            <section id="section-deviner" class="card">
+                <div id="bloc-recherche" class="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Entrez un titre de musique..."
+                        aria-label="Deviner une musique"
+                        id="guess-input"
+                    />
+                    <button
+                        id="btn-deviner"
+                        type="button"
+                        class="btn_clicable"
+                        title="Deviner la musique"
+                    >
+                        Deviner
+                    </button>
+                </div>
+                <div id="feedback" class="feedback">
+                    <!-- Les résultats de la tentative seront affichés ici -->
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
